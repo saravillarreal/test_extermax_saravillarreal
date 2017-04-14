@@ -1,4 +1,7 @@
 <resources>
-    <string name="app_name">test_saravillarreal</string>
+    <string name="app_name">Flickr Test Etermax</string>
     <string name="action_settings">Settings</string>
+
+    <string name="network_not_available">You are offline. Wi-Fi and mobile data are unavailable.</string>
+    <string name="simple_exception_message">An error has occurred, try again later.</string>
 </resources>
