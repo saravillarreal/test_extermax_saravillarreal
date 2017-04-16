@@ -1,5 +1,6 @@
 package com.test.etermax.test_saravillarreal.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -17,6 +18,7 @@ import android.view.MenuItem;
 import com.test.etermax.test_saravillarreal.R;
 import com.test.etermax.test_saravillarreal.adapters.PhotosAdapter;
 import com.test.etermax.test_saravillarreal.fragments.MainFragment;
+import com.test.etermax.test_saravillarreal.fragments.PhotosGridFragment;
 import com.test.etermax.test_saravillarreal.interfaces.FragmentInterface;
 
 import java.util.ArrayList;
@@ -43,8 +45,10 @@ public class MainActivity extends BaseActivity implements FragmentInterface {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+
+                Intent emailIntent = new Intent(Intent.ACTION_SEND);
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Test Etermax");
+                startActivity(Intent.createChooser(emailIntent, "Send email using:"));
             }
         });
 
@@ -95,8 +99,10 @@ public class MainActivity extends BaseActivity implements FragmentInterface {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.action_grid_view) {
+            PhotosGridFragment photosGridFragment = new PhotosGridFragment();
+            getFragment(photosGridFragment, null, true, PhotosGridFragment.TAG);
+
         }
 
         return super.onOptionsItemSelected(item);

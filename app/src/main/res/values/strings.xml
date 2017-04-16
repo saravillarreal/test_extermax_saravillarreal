@@ -4,4 +4,8 @@
 
     <string name="network_not_available">You are offline. Wi-Fi and mobile data are unavailable.</string>
     <string name="simple_exception_message">An error has occurred, try again later.</string>
+    <string name="grid_view">Grid View</string>
+
+    <string name="items_arraylist">items_list_object</string>
+
 </resources>

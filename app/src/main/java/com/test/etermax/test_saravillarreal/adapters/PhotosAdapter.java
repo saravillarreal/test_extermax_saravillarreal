@@ -38,6 +38,13 @@ public class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.ViewHolder
     private ArrayList<ItemFlickr> values;
     Context mContex;
 
+    // Provide a suitable constructor (depends on the kind of dataset)
+    public PhotosAdapter(ArrayList<ItemFlickr> myDataset, Context context) {
+        values = myDataset;
+        mContex = context;
+    }
+
+
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
     // you provide access to all the views for a data item in a view holder
@@ -65,7 +72,6 @@ public class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.ViewHolder
     }
 
     public void add(int position, String item) {
-        //values.add(position, item);
         notifyItemInserted(position);
     }
 
@@ -74,11 +80,7 @@ public class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.ViewHolder
         notifyItemRemoved(position);
     }
 
-    // Provide a suitable constructor (depends on the kind of dataset)
-    public PhotosAdapter(ArrayList<ItemFlickr> myDataset, Context context) {
-        values = myDataset;
-        mContex = context;
-    }
+
 
     // Create new views (invoked by the layout manager)
     @Override

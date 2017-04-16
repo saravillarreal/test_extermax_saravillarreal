@@ -18,10 +18,7 @@ public class SplashActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-
         showDelay();
-
-
     }
 
 
@@ -35,7 +32,6 @@ public class SplashActivity extends BaseActivity {
 
                 }
             }, secondsDelayed * 1000);
-
 
     }
 }

@@ -43,6 +43,7 @@ import com.test.etermax.test_saravillarreal.databinding.MainFragmentBinding;
 import com.test.etermax.test_saravillarreal.global.TestGlobalValues;
 import com.test.etermax.test_saravillarreal.util.AppUtil;
 import com.test.etermax.test_saravillarreal.util.JsonUtil;
+import com.test.etermax.test_saravillarreal.util.SessionUtil;
 import com.test.etermax.test_saravillarreal.web.UrlBase;
 import com.test.etermax.test_saravillarreal.web.UrlFlickr;
 
@@ -76,7 +77,7 @@ public class MainFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        Log.i(TAG, "FragmentLogin");
+
         mainFragmentBinding = DataBindingUtil.inflate(inflater, R.layout.main_fragment, container, false );
 
 
@@ -93,6 +94,22 @@ public class MainFragment extends BaseFragment {
             }
         });
 
+
+        if (SessionUtil.getArrayListItems() == null){
+            mPhotosList = SessionUtil.getPreferencesItems(getActivity(), getActivity().getString(R.string.items_arraylist));
+            if (mPhotosList.size() > 0){
+                mAdapter = new PhotosAdapter(mPhotosList, getActivity());
+                mainFragmentBinding.recyclerView.setAdapter(mAdapter);
+            }
+            else{
+                getPhoto();
+            }
+
+        }
+
+        else {
+            mPhotosList = SessionUtil.getPreferencesItems(getActivity(), getActivity().getString(R.string.items_arraylist));
+        }
         getPhoto();
 
         mainFragmentBinding.flickrPhotoSwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -162,10 +179,14 @@ public class MainFragment extends BaseFragment {
                 JsonObject obj = new JsonParser().parse(response.toString()).getAsJsonObject();
                 FlickrFeed flickrFeed = gson.fromJson(obj, FlickrFeed.class);
                 mPhotosList = new ArrayList<>();
+                mPhotosList = SessionUtil.getPreferencesItems(getActivity(), getActivity().getString(R.string.items_arraylist));
                 for (int i= 0; i< flickrFeed.getItems().size(); i++){
                     mPhotosList.add(flickrFeed.getItems().get(i));
                 }
 
+
+                SessionUtil.setArrayListItems(mPhotosList);
+                SessionUtil.savePreferencesItemFlickr(getActivity(),mPhotosList);
                 mAdapter = new PhotosAdapter(mPhotosList, getActivity());
                 mainFragmentBinding.recyclerView.setAdapter(mAdapter);
 
